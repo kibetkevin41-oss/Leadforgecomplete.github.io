@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeadForge — Customer Acquisition That Converts</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Cabinet+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --lime:#C8FF00;--cyan:#00E5FF;--coral:#FF5C5C;--violet:#8B5CF6;
+  --orange:#FF8C42;--pink:#FF3CAC;--wa:#25D366;
+  --ink:#08090A;--ink2:#111318;--ink3:#1A1E27;--ink4:#222736;
+  --white:#FFFFFF;--glass:rgba(255,255,255,0.04);--gb:rgba(255,255,255,0.09);
+  --font-head:'Syne',sans-serif;--font-body:'Cabinet Grotesk',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--ink);color:var(--white);overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+.cursor{width:12px;height:12px;border-radius:50%;background:var(--lime);position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transition:transform 0.1s;mix-blend-mode:difference}
+.cursor-ring{width:36px;height:36px;border-radius:50%;border:1.5px solid rgba(200,255,0,0.5);position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transition:all 0.18s ease}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:1;opacity:0.4}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5%;background:rgba(8,9,10,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--gb)}
+.logo{font-family:var(--font-head);font-size:1.5rem;font-weight:800;text-decoration:none;background:linear-gradient(135deg,var(--lime),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+nav ul{display:flex;gap:2rem;list-style:none}
+nav ul a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.85rem;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;transition:color 0.2s}
+nav ul a:hover{color:var(--lime)}
+.nav-cta{background:var(--lime);color:var(--ink)!important;padding:0.55rem 1.3rem;border-radius:100px!important;font-weight:700!important;transition:all 0.2s!important}
+.nav-cta:hover{transform:scale(1.05)!important;box-shadow:0 0 24px rgba(200,255,0,0.4)!important}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:8rem 5% 5rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 75% 45%,rgba(139,92,246,0.18) 0%,transparent 65%),radial-gradient(ellipse 40% 50% at 20% 70%,rgba(0,229,255,0.1) 0%,transparent 60%),radial-gradient(ellipse 35% 40% at 60% 90%,rgba(200,255,0,0.08) 0%,transparent 60%)}
+.orb{position:absolute;border-radius:50%;filter:blur(60px);animation:float 8s ease-in-out infinite;pointer-events:none}
+.orb1{width:300px;height:300px;background:rgba(139,92,246,0.25);top:10%;right:15%;animation-delay:0s}
+.orb2{width:200px;height:200px;background:rgba(0,229,255,0.2);bottom:20%;left:10%;animation-delay:-3s}
+.orb3{width:150px;height:150px;background:rgba(200,255,0,0.15);top:50%;right:35%;animation-delay:-5s}
+@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.05)}}
+.hero-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:60px 60px}
+.hero-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;width:100%;max-width:1300px;margin:0 auto;position:relative;z-index:2}
+.hero-tag{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(200,255,0,0.1);border:1px solid rgba(200,255,0,0.25);color:var(--lime);font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.45rem 1rem;border-radius:100px;margin-bottom:1.5rem;animation:fadeUp 0.6s ease both}
+.hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--lime);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+.hero h1{font-family:var(--font-head);font-size:clamp(3rem,5.5vw,5rem);font-weight:800;line-height:1.0;letter-spacing:-0.03em;margin-bottom:1.5rem;animation:fadeUp 0.6s 0.1s ease both}
+.hero h1 .line2{background:linear-gradient(135deg,var(--lime) 0%,var(--cyan) 60%,var(--violet) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{color:rgba(255,255,255,0.55);font-size:1.05rem;line-height:1.85;max-width:480px;margin-bottom:2.5rem;animation:fadeUp 0.6s 0.2s ease both}
+.hero-actions{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;animation:fadeUp 0.6s 0.3s ease both}
+.btn-primary{background:linear-gradient(135deg,var(--lime),#A8E000);color:var(--ink);padding:0.9rem 2rem;border-radius:100px;font-weight:700;font-size:0.95rem;text-decoration:none;transition:all 0.25s;border:none;cursor:pointer;display:inline-block;box-shadow:0 4px 24px rgba(200,255,0,0.3);position:relative;overflow:hidden}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(200,255,0,0.45)}
+.btn-ghost{border:1.5px solid var(--gb);color:rgba(255,255,255,0.75);padding:0.9rem 2rem;border-radius:100px;font-weight:500;font-size:0.95rem;text-decoration:none;transition:all 0.25s;display:inline-block;backdrop-filter:blur(8px)}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 20px rgba(0,229,255,0.15)}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;animation:fadeUp 0.6s 0.4s ease both}
+.stat-item .num{font-family:var(--font-head);font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--white),rgba(255,255,255,0.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block}
+.stat-item .lbl{font-size:0.75rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.06em}
+.hero-right{display:flex;flex-direction:column;gap:1rem;perspective:1000px;animation:fadeUp 0.6s 0.2s ease both}
+.lcard{background:var(--glass);border:1px solid var(--gb);border-radius:16px;padding:1.4rem 1.5rem;transform:rotateY(-5deg) rotateX(3deg);transition:transform 0.4s ease,box-shadow 0.4s ease;position:relative;overflow:hidden}
+.lcard::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent)}
+.lcard:hover{transform:rotateY(0deg) rotateX(0deg) translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,0.4)}
+.lcard.c1{border-color:rgba(200,255,0,0.2)}.lcard.c2{border-color:rgba(0,229,255,0.2)}.lcard.c3{border-color:rgba(139,92,246,0.2)}
+.lcard-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.lcard-name{font-family:var(--font-head);font-size:1rem;font-weight:700}
+.pill{font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.3rem 0.75rem;border-radius:100px}
+.pill-lime{background:rgba(200,255,0,0.15);color:var(--lime);border:1px solid rgba(200,255,0,0.3)}
+.pill-cyan{background:rgba(0,229,255,0.15);color:var(--cyan);border:1px solid rgba(0,229,255,0.3)}
+.pill-violet{background:rgba(139,92,246,0.15);color:#B98FF7;border:1px solid rgba(139,92,246,0.3)}
+.lcard-meta{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem}
+.meta-label{font-size:0.68rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.15rem}
+.meta-val{font-size:0.88rem;color:rgba(255,255,255,0.85);font-weight:500}
+.score-bar{margin-top:1rem;height:3px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden}
+.score-fill{height:100%;border-radius:2px;transition:width 1.5s cubic-bezier(0.22,1,0.36,1)}
+.sf-lime{background:linear-gradient(90deg,#6BBF00,var(--lime))}.sf-cyan{background:linear-gradient(90deg,#008BAA,var(--cyan))}.sf-violet{background:linear-gradient(90deg,#5B2CB0,var(--violet))}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* TRUSTED */
+.trusted{padding:2rem 5%;border-top:1px solid var(--gb);border-bottom:1px solid var(--gb);background:rgba(255,255,255,0.015)}
+.trusted-inner{max-width:1300px;margin:0 auto;display:flex;align-items:center;gap:3rem;flex-wrap:wrap}
+.trusted-lbl{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.2);white-space:nowrap;flex-shrink:0}
+.trusted-logos{display:flex;gap:2.5rem;align-items:center;flex-wrap:wrap}
+.trusted-logo{font-family:var(--font-head);font-size:0.9rem;font-weight:700;color:rgba(255,255,255,0.15);letter-spacing:0.03em;transition:color 0.2s;cursor:default}
+.trusted-logo:hover{color:rgba(255,255,255,0.4)}
+
+/* SECTIONS */
+section.pad{padding:6rem 5%}
+.inner{max-width:1300px;margin:0 auto}
+.stag{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem}
+.stag::before{content:'';width:20px;height:2px;border-radius:1px}
+.stag.lime{color:var(--lime)}.stag.lime::before{background:var(--lime)}
+.stag.cyan{color:var(--cyan)}.stag.cyan::before{background:var(--cyan)}
+.stag.violet{color:#B98FF7}.stag.violet::before{background:var(--violet)}
+.stag.coral{color:var(--coral)}.stag.coral::before{background:var(--coral)}
+.sh{font-family:var(--font-head);font-size:clamp(2rem,4vw,3.2rem);font-weight:800;line-height:1.1;letter-spacing:-0.025em;margin-bottom:1.25rem}
+.ssub{font-size:1.05rem;color:rgba(255,255,255,0.45);line-height:1.85;max-width:500px}
+
+/* INDUSTRIES */
+.ind-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:4rem}
+.ind-card{background:var(--ink2);border:1px solid var(--gb);border-radius:20px;padding:2rem;transition:all 0.35s cubic-bezier(0.22,1,0.36,1);position:relative;overflow:hidden;cursor:pointer}
+.ind-card::after{content:'';position:absolute;inset:0;border-radius:20px;background:linear-gradient(135deg,rgba(255,255,255,0.03),transparent);opacity:0;transition:opacity 0.3s}
+.ind-card:hover{transform:translateY(-6px) scale(1.01);border-color:rgba(255,255,255,0.15)}
+.ind-card:hover::after{opacity:1}
+.ind-card.hero-card{grid-row:span 2;background:linear-gradient(145deg,var(--ink3),#141820);border-color:rgba(200,255,0,0.2)}
+.ind-card.hero-card:hover{border-color:rgba(200,255,0,0.5);box-shadow:0 20px 60px rgba(200,255,0,0.08)}
+.ind-glow{position:absolute;top:-40px;right:-40px;width:120px;height:120px;border-radius:50%;filter:blur(40px);opacity:0.4;transition:opacity 0.3s}
+.ind-card:hover .ind-glow{opacity:0.7}
+.g-lime{background:var(--lime)}.g-cyan{background:var(--cyan)}.g-violet{background:var(--violet)}.g-coral{background:var(--coral)}.g-orange{background:var(--orange)}.g-pink{background:var(--pink)}
+.ind-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:1.25rem}
+.ind-card h3{font-family:var(--font-head);font-size:1.2rem;font-weight:700;margin-bottom:0.6rem}
+.ind-card p{font-size:0.88rem;color:rgba(255,255,255,0.45);line-height:1.75}
+.ind-results{margin-top:1.75rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.06);display:flex;gap:2rem}
+.ir-num{font-family:var(--font-head);font-size:1.8rem;font-weight:800;color:var(--lime);display:block;line-height:1}
+.ir-lbl{font-size:0.7rem;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:0.06em;margin-top:0.25rem;display:block}
+
+/* HOW IT WORKS */
+.hiw{background:var(--ink2)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:4rem;position:relative}
+.steps::before{content:'';position:absolute;top:3rem;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,var(--lime),var(--cyan),var(--violet),transparent);opacity:0.3}
+.step{background:var(--ink3);border:1px solid var(--gb);border-radius:20px;padding:2rem 1.5rem;text-align:center;transition:all 0.3s ease;position:relative;z-index:2}
+.step:hover{transform:translateY(-5px);border-color:rgba(255,255,255,0.15)}
+.step-num{width:3.5rem;height:3.5rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-head);font-size:1.2rem;font-weight:800;margin:0 auto 1.5rem;position:relative}
+.sn1{background:rgba(200,255,0,0.1);color:var(--lime);border:1px solid rgba(200,255,0,0.3)}
+.sn2{background:rgba(0,229,255,0.1);color:var(--cyan);border:1px solid rgba(0,229,255,0.3)}
+.sn3{background:rgba(139,92,246,0.1);color:#B98FF7;border:1px solid rgba(139,92,246,0.3)}
+.sn4{background:rgba(255,140,66,0.1);color:var(--orange);border:1px solid rgba(255,140,66,0.3)}
+.step h3{font-family:var(--font-head);font-size:1rem;font-weight:700;margin-bottom:0.75rem}
+.step p{font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.75}
+
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3.5rem}
+.svc{background:var(--ink2);border:1px solid var(--gb);border-radius:20px;padding:2rem;display:flex;gap:1.5rem;transition:all 0.3s ease;position:relative;overflow:hidden}
+.svc::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;opacity:0;transition:opacity 0.3s}
+.svc:hover{transform:translateY(-3px);border-color:rgba(255,255,255,0.12)}
+.svc:hover::before{opacity:1}
+.svc.l::before{background:linear-gradient(180deg,var(--lime),var(--cyan))}.svc.c::before{background:linear-gradient(180deg,var(--cyan),var(--violet))}.svc.v::before{background:linear-gradient(180deg,var(--violet),var(--pink))}.svc.o::before{background:linear-gradient(180deg,var(--orange),var(--coral))}
+.svc-icon{width:50px;height:50px;flex-shrink:0;border-radius:14px;border:1px solid var(--gb);display:flex;align-items:center;justify-content:center;font-size:22px;transition:transform 0.3s}
+.svc:hover .svc-icon{transform:scale(1.1) rotate(-5deg)}
+.svc h3{font-family:var(--font-head);font-size:1.05rem;font-weight:700;margin-bottom:0.45rem}
+.svc p{font-size:0.86rem;color:rgba(255,255,255,0.4);line-height:1.7}
+.svc ul{margin-top:0.75rem;display:flex;flex-wrap:wrap;gap:0.4rem;list-style:none}
+.svc ul li{font-size:0.72rem;font-weight:600;padding:0.25rem 0.65rem;border-radius:100px;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.08)}
+
+/* RESULTS */
+.results-bg{background:var(--ink2)}
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem}
+.case{border-radius:20px;overflow:hidden;border:1px solid var(--gb);transition:all 0.3s ease}
+.case:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(0,0,0,0.4)}
+.case-top{padding:2rem;position:relative;overflow:hidden}
+.ct1{background:linear-gradient(145deg,#0F1920,#0A1315)}.ct2{background:linear-gradient(145deg,#150F20,#0E0A15)}.ct3{background:linear-gradient(145deg,#201310,#140C09)}
+.case-glow{position:absolute;bottom:-30px;right:-30px;width:100px;height:100px;border-radius:50%;filter:blur(35px)}
+.cg1{background:rgba(0,229,255,0.3)}.cg2{background:rgba(139,92,246,0.3)}.cg3{background:rgba(255,140,66,0.3)}
+.case-ind{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem}
+.case-title{font-family:var(--font-head);font-size:1rem;font-weight:700;line-height:1.3;margin-bottom:1.5rem}
+.case-metrics{display:flex;gap:1.5rem}
+.cm-num{font-family:var(--font-head);font-size:2rem;font-weight:800;display:block;line-height:1}
+.cm-lbl{font-size:0.68rem;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:0.05em;margin-top:0.2rem;display:block}
+.case-bot{background:var(--ink3);padding:1.5rem 2rem}
+.case-bot p{font-size:0.85rem;color:rgba(255,255,255,0.5);line-height:1.75;font-style:italic}
+.case-author{margin-top:1rem;font-size:0.85rem;font-weight:700}
+.case-role{font-size:0.78rem;color:rgba(255,255,255,0.3)}
+
+/* PRICING */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3.5rem}
+.plan{background:var(--ink2);border:1px solid var(--gb);border-radius:24px;padding:2.5rem 2rem;transition:all 0.3s ease;position:relative;overflow:hidden}
+.plan:hover{transform:translateY(-5px)}
+.plan.featured{border-color:rgba(200,255,0,0.4);background:linear-gradient(160deg,#111A0A,var(--ink2));transform:scale(1.04);box-shadow:0 0 0 1px rgba(200,255,0,0.2),0 20px 60px rgba(200,255,0,0.08)}
+.plan.featured:hover{transform:scale(1.04) translateY(-5px)}
+.featured-glow{position:absolute;top:-60px;right:-60px;width:180px;height:180px;border-radius:50%;background:rgba(200,255,0,0.08);filter:blur(50px)}
+.plan-badge{display:inline-block;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:var(--lime);color:var(--ink);padding:0.3rem 0.85rem;border-radius:100px;margin-bottom:1.25rem}
+.plan-name{font-family:var(--font-head);font-size:1.3rem;font-weight:800;margin-bottom:0.4rem}
+.plan-desc{font-size:0.85rem;color:rgba(255,255,255,0.4);margin-bottom:1.75rem;line-height:1.6}
+.plan-price{font-family:var(--font-head);font-size:2.8rem;font-weight:800;line-height:1;margin-bottom:0.25rem}
+.plan-price span{font-size:1rem;font-weight:400;color:rgba(255,255,255,0.35);font-family:var(--font-body)}
+.featured .plan-price{background:linear-gradient(135deg,var(--lime),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.plan-div{height:1px;background:var(--gb);margin:1.75rem 0}
+.plan-feats{list-style:none;display:flex;flex-direction:column;gap:0.85rem}
+.plan-feats li{font-size:0.87rem;color:rgba(255,255,255,0.55);display:flex;align-items:flex-start;gap:0.6rem}
+.plan-feats li::before{content:'✓';flex-shrink:0;font-size:0.75rem;font-weight:800;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(200,255,0,0.1);color:var(--lime);margin-top:0.1em}
+.plan-btn{display:block;text-align:center;padding:0.9rem;border-radius:100px;font-weight:700;font-size:0.9rem;text-decoration:none;margin-top:2rem;transition:all 0.25s;cursor:pointer;font-family:var(--font-body);border:1.5px solid rgba(200,255,0,0.4);color:var(--lime);background:rgba(200,255,0,0.05)}
+.plan-btn:hover{background:rgba(200,255,0,0.1);box-shadow:0 0 20px rgba(200,255,0,0.15)}
+.featured .plan-btn{background:linear-gradient(135deg,var(--lime),#A8E000);color:var(--ink);border-color:transparent;box-shadow:0 4px 24px rgba(200,255,0,0.3)}
+.featured .plan-btn:hover{box-shadow:0 8px 32px rgba(200,255,0,0.45);transform:translateY(-1px)}
+
+/* CTA */
+.cta-sec{padding:8rem 5%;background:var(--ink);text-align:center;position:relative;overflow:hidden}
+.cta-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 100%,rgba(200,255,0,0.07) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 20% 20%,rgba(0,229,255,0.05) 0%,transparent 60%)}
+.cta-sec .inner{position:relative;z-index:2}
+.cta-sec h2{font-family:var(--font-head);font-size:clamp(2.4rem,5vw,4rem);font-weight:800;letter-spacing:-0.03em;line-height:1.08;margin-bottom:1.25rem}
+.cta-sec h2 em{font-style:normal;background:linear-gradient(135deg,var(--lime),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.cta-sec p{font-size:1.05rem;color:rgba(255,255,255,0.45);max-width:450px;margin:0 auto 2.5rem;line-height:1.8}
+.cta-form{display:flex;gap:0;max-width:460px;margin:0 auto;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:100px;overflow:hidden;padding:5px}
+.cta-form input{flex:1;background:transparent;border:none;outline:none;padding:0.9rem 1.25rem;color:var(--white);font-family:var(--font-body);font-size:0.95rem}
+.cta-form input::placeholder{color:rgba(255,255,255,0.25)}
+.cta-form button{background:linear-gradient(135deg,var(--lime),#A8E000);color:var(--ink);border:none;padding:0.9rem 1.75rem;font-weight:700;font-size:0.88rem;cursor:pointer;font-family:var(--font-body);border-radius:100px;white-space:nowrap;transition:all 0.2s}
+.cta-form button:hover{box-shadow:0 0 20px rgba(200,255,0,0.4);transform:scale(1.02)}
+
+/* FOOTER */
+footer{background:#050506;padding:4rem 5% 2rem;border-top:1px solid var(--gb)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;max-width:1300px;margin:0 auto}
+.footer-brand .logo{font-size:1.4rem;display:inline-block;margin-bottom:1rem}
+.footer-brand p{font-size:0.85rem;color:rgba(255,255,255,0.25);line-height:1.8;max-width:260px}
+.footer-col h4{font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:1.25rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.75rem}
+.footer-col ul a{text-decoration:none;font-size:0.87rem;color:rgba(255,255,255,0.3);transition:color 0.2s}
+.footer-col ul a:hover{color:var(--lime)}
+.footer-bot{max-width:1300px;margin:3rem auto 0;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-bot p{font-size:0.8rem;color:rgba(255,255,255,0.2)}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:all 0.7s cubic-bezier(0.22,1,0.36,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ═══════════════════════════════════════════
+   AI QUALIFIER SECTION (embedded in page)
+═══════════════════════════════════════════ */
+.ai-section{padding:6rem 5%;background:linear-gradient(180deg,var(--ink2) 0%,var(--ink) 100%);position:relative;overflow:hidden}
+.ai-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 50% 50%,rgba(200,255,0,0.04) 0%,transparent 70%)}
+.ai-intro{text-align:center;margin-bottom:3.5rem}
+.ai-intro .ssub{margin:0 auto}
+
+.ai-shell{
+  max-width:1000px;margin:0 auto;
+  background:var(--ink2);
+  border:1px solid rgba(200,255,0,0.15);
+  border-radius:24px;overflow:hidden;
+  box-shadow:0 0 0 1px rgba(200,255,0,0.05),0 40px 80px rgba(0,0,0,0.5);
+  display:flex;flex-direction:column;
+  height:620px;
+}
+
+/* Chatbot top bar */
+.ai-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.5rem;
+  background:rgba(8,9,10,0.9);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  flex-shrink:0;
+}
+.ai-bar-left{display:flex;align-items:center;gap:0.85rem}
+.ai-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,rgba(200,255,0,0.2),rgba(0,229,255,0.2));border:1px solid rgba(200,255,0,0.3);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.ai-name{font-family:var(--font-head);font-size:0.95rem;font-weight:700}
+.ai-status{font-size:0.72rem;color:rgba(255,255,255,0.35);display:flex;align-items:center;gap:0.35rem}
+.ai-dot{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 6px var(--lime);animation:pulse 2s ease-in-out infinite}
+.ai-bar-right{display:flex;gap:0.5rem}
+.ai-icon-btn{width:30px;height:30px;border-radius:7px;border:1px solid rgba(255,255,255,0.07);background:var(--glass);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.8rem;transition:all 0.2s;color:rgba(255,255,255,0.4)}
+.ai-icon-btn:hover{background:rgba(255,255,255,0.08);color:#fff}
+.ai-wa-btn{display:flex;align-items:center;gap:0.4rem;background:rgba(37,211,102,0.12);border:1px solid rgba(37,211,102,0.25);color:var(--wa);padding:0.35rem 0.85rem;border-radius:7px;font-size:0.75rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:var(--font-body)}
+.ai-wa-btn:hover{background:rgba(37,211,102,0.2);box-shadow:0 0 14px rgba(37,211,102,0.2)}
+
+/* Messages area */
+.ai-messages{flex:1;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:0.85rem}
+.ai-messages::-webkit-scrollbar{width:3px}
+.ai-messages::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:2px}
+.ai-msg{display:flex;gap:0.65rem;max-width:80%;animation:msgIn 0.3s cubic-bezier(0.22,1,0.36,1) both}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ai-msg.bot{align-self:flex-start}
+.ai-msg.user{align-self:flex-end;flex-direction:row-reverse}
+.ai-bubble{padding:0.8rem 1rem;border-radius:14px;font-size:0.88rem;line-height:1.65;position:relative}
+.ai-msg.bot .ai-bubble{background:var(--ink3);border:1px solid rgba(255,255,255,0.07);border-top-left-radius:4px;color:rgba(255,255,255,0.88)}
+.ai-msg.user .ai-bubble{background:linear-gradient(135deg,rgba(200,255,0,0.15),rgba(0,229,255,0.1));border:1px solid rgba(200,255,0,0.2);border-top-right-radius:4px}
+.ai-time{font-size:0.65rem;color:rgba(255,255,255,0.2);margin-top:0.25rem;display:block}
+.ai-msg.bot .ai-time{text-align:left}.ai-msg.user .ai-time{text-align:right}
+.ai-avatar-sm{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,rgba(200,255,0,0.2),rgba(0,229,255,0.2));border:1px solid rgba(200,255,0,0.25);display:flex;align-items:center;justify-content:center;font-size:0.85rem;flex-shrink:0;align-self:flex-end}
+
+/* Quick replies */
+.ai-qrs{display:flex;flex-wrap:wrap;gap:0.45rem;margin-top:0.6rem}
+.ai-qr{padding:0.38rem 0.85rem;border-radius:100px;border:1px solid rgba(200,255,0,0.25);color:var(--lime);background:rgba(200,255,0,0.06);font-size:0.78rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:var(--font-body)}
+.ai-qr:hover{background:rgba(200,255,0,0.15);transform:translateY(-1px)}
+
+/* Score card */
+.ai-score-card{background:var(--ink4);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:0.9rem 1rem;margin-top:0.6rem}
+.ai-sc-title{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:0.6rem}
+.ai-sc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-bottom:0.75rem}
+.ai-sc-lbl{font-size:0.65rem;color:rgba(255,255,255,0.3);margin-bottom:0.1rem}
+.ai-sc-val{font-size:0.82rem;font-weight:600}
+.ai-sc-track{height:5px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden}
+.ai-sc-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--lime),var(--cyan));transition:width 1s cubic-bezier(0.22,1,0.36,1)}
+
+/* WA action */
+.ai-wa-card{display:flex;align-items:center;gap:0.65rem;background:rgba(37,211,102,0.07);border:1px solid rgba(37,211,102,0.2);border-radius:10px;padding:0.75rem 0.9rem;margin-top:0.6rem;cursor:pointer;transition:all 0.2s}
+.ai-wa-card:hover{background:rgba(37,211,102,0.14);border-color:rgba(37,211,102,0.4)}
+.ai-wa-card-txt{font-size:0.82rem;font-weight:700;color:var(--wa)}
+.ai-wa-card-sub{font-size:0.72rem;color:rgba(255,255,255,0.3)}
+
+/* Typing dots */
+.ai-typing{display:flex;align-items:center;gap:3px;padding:0.8rem 1rem;background:var(--ink3);border:1px solid rgba(255,255,255,0.07);border-radius:14px;border-top-left-radius:4px;width:fit-content}
+.ai-typing span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.4);animation:typing 1.2s ease-in-out infinite}
+.ai-typing span:nth-child(2){animation-delay:0.2s}
+.ai-typing span:nth-child(3){animation-delay:0.4s}
+@keyframes typing{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+
+/* Input bar */
+.ai-input-bar{padding:0.85rem 1.25rem;background:rgba(8,9,10,0.9);border-top:1px solid rgba(255,255,255,0.06);flex-shrink:0}
+.ai-input-wrap{display:flex;align-items:flex-end;gap:0.65rem;background:var(--ink3);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:0.5rem 0.5rem 0.5rem 0.9rem;transition:border-color 0.2s}
+.ai-input-wrap:focus-within{border-color:rgba(200,255,0,0.3)}
+.ai-input-wrap textarea{flex:1;background:transparent;border:none;outline:none;color:#fff;font-family:var(--font-body);font-size:0.88rem;resize:none;max-height:100px;line-height:1.55;padding:0.2rem 0;min-height:22px}
+.ai-input-wrap textarea::placeholder{color:rgba(255,255,255,0.2)}
+.ai-send{width:34px;height:34px;border-radius:9px;border:none;background:linear-gradient(135deg,var(--lime),#A8E000);color:var(--ink);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0}
+.ai-send:hover{box-shadow:0 0 14px rgba(200,255,0,0.4);transform:scale(1.05)}
+
+/* ═══════════════════════════════════════════
+   FLOATING CHAT BUBBLE
+═══════════════════════════════════════════ */
+.float-bubble{
+  position:fixed;bottom:2rem;right:2rem;z-index:500;
+}
+.float-btn{
+  width:60px;height:60px;border-radius:50%;
+  background:linear-gradient(135deg,var(--lime),#A8E000);
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;
+  box-shadow:0 4px 24px rgba(200,255,0,0.4);
+  transition:all 0.3s;
+  animation:floatPulse 3s ease-in-out infinite;
+  position:relative;
+}
+@keyframes floatPulse{0%,100%{box-shadow:0 4px 24px rgba(200,255,0,0.4)}50%{box-shadow:0 4px 40px rgba(200,255,0,0.7)}}
+.float-btn:hover{transform:scale(1.1)}
+.float-btn .notif{position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:var(--coral);color:#fff;font-size:0.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid var(--ink)}
+.float-tooltip{
+  position:absolute;bottom:70px;right:0;
+  background:var(--ink2);border:1px solid rgba(200,255,0,0.2);
+  border-radius:14px;padding:1.1rem 1.25rem;
+  width:260px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.4);
+  animation:popUp 0.3s cubic-bezier(0.22,1,0.36,1) both;
+  display:none;
+}
+.float-tooltip.show{display:block}
+@keyframes popUp{from{opacity:0;transform:scale(0.9) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.ft-head{display:flex;align-items:center;gap:0.65rem;margin-bottom:0.75rem}
+.ft-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,rgba(200,255,0,0.2),rgba(0,229,255,0.2));border:1px solid rgba(200,255,0,0.3);display:flex;align-items:center;justify-content:center;font-size:0.9rem}
+.ft-title{font-family:var(--font-head);font-size:0.85rem;font-weight:700}
+.ft-sub{font-size:0.7rem;color:rgba(255,255,255,0.35)}
+.ft-msg{font-size:0.82rem;color:rgba(255,255,255,0.6);line-height:1.6;margin-bottom:0.85rem}
+.ft-cta{display:block;text-align:center;padding:0.6rem;border-radius:100px;background:linear-gradient(135deg,var(--lime),#A8E000);color:var(--ink);font-weight:700;font-size:0.82rem;text-decoration:none;transition:all 0.2s;border:none;cursor:pointer;font-family:var(--font-body);width:100%}
+.ft-cta:hover{box-shadow:0 0 16px rgba(200,255,0,0.4)}
+.ft-close{position:absolute;top:0.6rem;right:0.75rem;background:none;border:none;color:rgba(255,255,255,0.3);font-size:1rem;cursor:pointer;transition:color 0.2s}
+.ft-close:hover{color:#fff}
+
+/* MOBILE */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr}.hero-right{display:none}
+  .ind-wrap{grid-template-columns:1fr 1fr}.ind-card.hero-card{grid-row:span 1}
+  .steps{grid-template-columns:1fr 1fr}.steps::before{display:none}
+  .services-grid{grid-template-columns:1fr}
+  .cases{grid-template-columns:1fr}
+  .plans{grid-template-columns:1fr}.plan.featured{transform:none}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  nav ul{display:none}
+  .ai-shell{height:500px}
+}
+@media(max-width:600px){
+  .ind-wrap{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .hero-stats{gap:1.5rem}
+  .ai-shell{height:460px}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">LeadForge</a>
+  <ul>
+    <li><a href="#industries">Industries</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#qualify">AI Qualifier</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact" class="nav-cta">Get Started</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">Real Estate & Beyond</div>
+      <h1>We Fill Your Pipeline<br><span class="line2">with Ready-to-Buy Leads</span></h1>
+      <p class="hero-desc">LeadForge delivers qualified customer acquisition for real estate agents, developers, and businesses across multiple industries. Verified prospects. Real results.</p>
+      <div class="hero-actions">
+        <a href="#qualify" class="btn-primary">Try AI Qualifier Free →</a>
+        <a href="#results" class="btn-ghost">See Our Results</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><span class="num" data-target="3200">0</span><span class="lbl">Leads / Month</span></div>
+        <div class="stat-item"><span class="num" data-target="94" data-suffix="%">0%</span><span class="lbl">Client Retention</span></div>
+        <div class="stat-item"><span class="num" data-target="48" data-suffix="×" data-decimal="true">0×</span><span class="lbl">Average ROI</span></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="lcard c1">
+        <div class="lcard-head"><span class="lcard-name">James & Sarah Kimani</span><span class="pill pill-lime">Hot Lead</span></div>
+        <div class="lcard-meta">
+          <div><div class="meta-label">Budget</div><div class="meta-val">KES 12M – 18M</div></div>
+          <div><div class="meta-label">Location</div><div class="meta-val">Kilimani, Nairobi</div></div>
+          <div><div class="meta-label">Type</div><div class="meta-val">3–4 Bed Apartment</div></div>
+          <div><div class="meta-label">Timeline</div><div class="meta-val">60 days</div></div>
+        </div>
+        <div class="score-bar"><div class="score-fill sf-lime" style="width:0" data-w="91%"></div></div>
+      </div>
+      <div class="lcard c2">
+        <div class="lcard-head"><span class="lcard-name">Westlands Commercial Investor</span><span class="pill pill-cyan">Qualified</span></div>
+        <div class="lcard-meta">
+          <div><div class="meta-label">Budget</div><div class="meta-val">KES 45M+</div></div>
+          <div><div class="meta-label">Sector</div><div class="meta-val">Commercial</div></div>
+          <div><div class="meta-label">Intent</div><div class="meta-val">Purchase</div></div>
+          <div><div class="meta-label">Source</div><div class="meta-val">Multi-channel</div></div>
+        </div>
+        <div class="score-bar"><div class="score-fill sf-cyan" style="width:0" data-w="77%"></div></div>
+      </div>
+      <div class="lcard c3">
+        <div class="lcard-head"><span class="lcard-name">Retail Space — Westlands</span><span class="pill pill-violet">New Lead</span></div>
+        <div class="lcard-meta">
+          <div><div class="meta-label">Space</div><div class="meta-val">800–1,200 sqft</div></div>
+          <div><div class="meta-label">Industry</div><div class="meta-val">F&B / Retail</div></div>
+        </div>
+        <div class="score-bar"><div class="score-fill sf-violet" style="width:0" data-w="55%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUSTED -->
+<div class="trusted">
+  <div class="trusted-inner">
+    <span class="trusted-lbl">Trusted by</span>
+    <div class="trusted-logos">
+      <span class="trusted-logo">PropertyZone</span><span class="trusted-logo">Akiba Homes</span>
+      <span class="trusted-logo">TopTier Finance</span><span class="trusted-logo">Vantage Motors</span>
+      <span class="trusted-logo">Horizon Legal</span><span class="trusted-logo">Swift Insurance</span>
+    </div>
+  </div>
+</div>
+
+<!-- INDUSTRIES -->
+<section class="pad" id="industries">
+  <div class="inner">
+    <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end">
+      <div><div class="stag lime">Industries We Serve</div><h2 class="sh">Built for Real Estate.<br>Proven Everywhere Else.</h2></div>
+      <p class="ssub">Our acquisition engine starts with real estate — but our methodology scales to any high-value sector where quality leads determine your growth ceiling.</p>
+    </div>
+    <div class="ind-wrap">
+      <div class="ind-card hero-card reveal">
+        <div class="ind-glow g-lime"></div>
+        <div class="ind-icon" style="background:rgba(200,255,0,0.08);border:1px solid rgba(200,255,0,0.2)">🏠</div>
+        <h3>Real Estate</h3>
+        <p>Our core specialty. Qualified buyers, renters, investors, and landlords for agents, developers, and rental managers across Kenya and East Africa.</p>
+        <div class="ind-results">
+          <div><span class="ir-num">340+</span><span class="ir-lbl">Agents Served</span></div>
+          <div><span class="ir-num" style="color:var(--cyan)">68%</span><span class="ir-lbl">Lead-to-Meeting</span></div>
+        </div>
+        <div class="pill pill-lime" style="margin-top:1.5rem;display:inline-block">Primary Focus</div>
+      </div>
+      <div class="ind-card reveal"><div class="ind-glow g-cyan"></div><div class="ind-icon" style="background:rgba(0,229,255,0.07);border:1px solid rgba(0,229,255,0.15)">🏦</div><h3>Finance & Banking</h3><p>Mortgage applicants, savings, personal loans. We connect financial institutions to pre-qualified prospects ready to commit.</p></div>
+      <div class="ind-card reveal"><div class="ind-glow g-orange"></div><div class="ind-icon" style="background:rgba(255,140,66,0.07);border:1px solid rgba(255,140,66,0.15)">🚗</div><h3>Automotive</h3><p>Verified in-market car buyers for dealerships and import businesses. High purchase intent, faster close cycles.</p></div>
+      <div class="ind-card reveal"><div class="ind-glow g-violet"></div><div class="ind-icon" style="background:rgba(139,92,246,0.07);border:1px solid rgba(139,92,246,0.15)">⚖️</div><h3>Legal Services</h3><p>Leads for law firms in property law, corporate advisory, and dispute resolution. Quality over volume, always.</p></div>
+      <div class="ind-card reveal"><div class="ind-glow g-pink"></div><div class="ind-icon" style="background:rgba(255,60,172,0.07);border:1px solid rgba(255,60,172,0.15)">🏥</div><h3>Healthcare</h3><p>Patients seeking elective and specialist services. Private hospitals and clinics trust us to fill their appointment books.</p></div>
+      <div class="ind-card reveal"><div class="ind-glow g-coral"></div><div class="ind-icon" style="background:rgba(255,92,92,0.07);border:1px solid rgba(255,92,92,0.15)">🛡️</div><h3>Insurance</h3><p>Life, health, auto, and property insurance leads for brokers looking to grow their book of business fast.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="pad hiw">
+  <div class="inner">
+    <div style="text-align:center" class="reveal"><div class="stag cyan" style="justify-content:center">The Process</div><h2 class="sh">From Audience to Appointment<br>in Four Steps</h2></div>
+    <div class="steps">
+      <div class="step reveal"><div class="step-num sn1">01</div><h3>Target & Define</h3><p>We study your ideal customer profile — demographics, purchase signals, location, budget — and build precision audience segments.</p></div>
+      <div class="step reveal"><div class="step-num sn2">02</div><h3>Attract & Capture</h3><p>Multi-channel campaigns across Meta, Google, WhatsApp, and organic search funnel high-intent prospects to your pages.</p></div>
+      <div class="step reveal"><div class="step-num sn3">03</div><h3>Qualify & Verify</h3><p>Every lead goes through our 12-point verification: intent, budget, timeline, and contact authenticity — before reaching you.</p></div>
+      <div class="step reveal"><div class="step-num sn4">04</div><h3>Deliver & Nurture</h3><p>Qualified leads arrive in your CRM in real time. We also run nurture sequences to warm up leads not yet ready to act.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="pad" id="services">
+  <div class="inner">
+    <div class="reveal"><div class="stag violet">What We Offer</div><h2 class="sh">End-to-End Acquisition Services</h2><p class="ssub">A complete toolkit — from first impression to booked appointment — so your team only speaks to people who are ready to act.</p></div>
+    <div class="services-grid">
+      <div class="svc l reveal"><div class="svc-icon" style="background:rgba(200,255,0,0.07)">🎯</div><div><h3>Paid Lead Generation</h3><p>Performance-driven campaigns across Google, Meta, and YouTube. You only pay for verified, qualified leads.</p><ul><li>Search & Display</li><li>Lead Ads</li><li>Retargeting</li><li>Video Funnels</li></ul></div></div>
+      <div class="svc c reveal"><div class="svc-icon" style="background:rgba(0,229,255,0.07)">📱</div><div><h3>WhatsApp & SMS Outreach</h3><p>Conversational lead gen on channels your prospects already use. Automated yet personal follow-up sequences.</p><ul><li>WhatsApp Business API</li><li>Drip Sequences</li><li>Appointment Setting</li></ul></div></div>
+      <div class="svc v reveal"><div class="svc-icon" style="background:rgba(139,92,246,0.07)">🌐</div><div><h3>Landing Page & Funnel Design</h3><p>High-converting pages purpose-built for your offer. A/B tested, mobile-first, optimised for cost-per-lead.</p><ul><li>Conversion Optimised</li><li>CRM Integration</li><li>Analytics Tracking</li></ul></div></div>
+      <div class="svc o reveal"><div class="svc-icon" style="background:rgba(255,140,66,0.07)">📊</div><div><h3>Lead Qualification & CRM</h3><p>Human and AI-assisted qualification so your salespeople spend time closing, not chasing cold contacts.</p><ul><li>Intent Scoring</li><li>Budget Verification</li><li>Hubspot / Pipedrive</li></ul></div></div>
+      <div class="svc l reveal"><div class="svc-icon" style="background:rgba(200,255,0,0.07)">✉️</div><div><h3>Email Marketing & Nurture</h3><p>Automated email journeys that keep your brand top of mind until a prospect is ready to buy.</p><ul><li>Drip Campaigns</li><li>Behavioural Triggers</li><li>Open Rate Optimisation</li></ul></div></div>
+      <div class="svc c reveal"><div class="svc-icon" style="background:rgba(0,229,255,0.07)">🔍</div><div><h3>SEO & Content Strategy</h3><p>Long-term organic lead generation through search visibility. Rank for the searches your buyers make first.</p><ul><li>Local SEO</li><li>Content Creation</li><li>Technical Audits</li></ul></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ AI QUALIFIER SECTION ═══════ -->
+<section class="ai-section" id="qualify">
+  <div class="inner">
+    <div class="ai-intro reveal">
+      <div class="stag lime" style="justify-content:center">AI-Powered</div>
+      <h2 class="sh">Qualify Your Lead in 60 Seconds</h2>
+      <p class="ssub">Our AI asks the right questions, scores your prospect instantly, and sends the summary straight to WhatsApp — so your team knows exactly who to call first.</p>
+    </div>
+    <div class="ai-shell reveal">
+      <!-- Top Bar -->
+      <div class="ai-bar">
+        <div class="ai-bar-left">
+          <div class="ai-avatar">🤖</div>
+          <div>
+            <div class="ai-name">LeadForge AI Qualifier</div>
+            <div class="ai-status"><span class="ai-dot"></span>Online — Ready to qualify</div>
+          </div>
+        </div>
+        <div class="ai-bar-right">
+          <div class="ai-icon-btn" title="Copy summary" onclick="aiCopy()">📋</div>
+          <div class="ai-icon-btn" title="Restart" onclick="aiRestart()">🔄</div>
+          <button class="ai-wa-btn" onclick="aiWhatsApp()">📱 Send to WhatsApp</button>
+        </div>
+      </div>
+      <!-- Messages -->
+      <div class="ai-messages" id="aiMessages"></div>
+      <!-- Input -->
+      <div class="ai-input-bar">
+        <div class="ai-input-wrap">
+          <textarea id="aiInput" placeholder="Type your answer or tap a button above…" rows="1" onkeydown="aiKey(event)" oninput="aiResize(this)"></textarea>
+          <button class="ai-send" onclick="aiSend()">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="pad results-bg" id="results">
+  <div class="inner">
+    <div style="display:grid;grid-template-columns:1fr auto;align-items:end;gap:2rem;margin-bottom:3.5rem" class="reveal">
+      <div><div class="stag coral">Client Results</div><h2 class="sh">Numbers That Speak<br>for Themselves</h2></div>
+      <a href="#qualify" class="btn-primary" style="white-space:nowrap">Try AI Qualifier →</a>
+    </div>
+    <div class="cases">
+      <div class="case reveal"><div class="case-top ct1"><div class="case-glow cg1"></div><div class="case-ind" style="color:var(--cyan)">Real Estate · Nairobi</div><div class="case-title">Mid-range Developer Needed Apartment Buyers</div><div class="case-metrics"><div><span class="cm-num" style="color:var(--cyan)">147</span><span class="cm-lbl">Qualified Leads/Mo</span></div><div><span class="cm-num" style="color:var(--lime)">34</span><span class="cm-lbl">Units Sold in 90 Days</span></div></div></div><div class="case-bot"><p>"LeadForge filled our show apartment every weekend. We sold out Phase 1 faster than any project we've run."</p><div class="case-author">David Mwangi</div><div class="case-role">Sales Director, Akiba Homes</div></div></div>
+      <div class="case reveal"><div class="case-top ct2"><div class="case-glow cg2"></div><div class="case-ind" style="color:#B98FF7">Finance · Mortgage Brokerage</div><div class="case-title">Broker Struggling to Find Pre-approved Borrowers</div><div class="case-metrics"><div><span class="cm-num" style="color:#B98FF7">5.2×</span><span class="cm-lbl">Return on Ad Spend</span></div><div><span class="cm-num" style="color:var(--lime)">KES 820K</span><span class="cm-lbl">Commission in 60 Days</span></div></div></div><div class="case-bot"><p>"The quality of leads is unmatched. Every person I talk to has already been told the rough terms — I'm just closing."</p><div class="case-author">Faith Otieno</div><div class="case-role">Principal Broker, TopTier Finance</div></div></div>
+      <div class="case reveal"><div class="case-top ct3"><div class="case-glow cg3"></div><div class="case-ind" style="color:var(--orange)">Automotive · Car Dealership</div><div class="case-title">Dealership Wanted Better Leads, Higher Close Rate</div><div class="case-metrics"><div><span class="cm-num" style="color:var(--orange)">+62%</span><span class="cm-lbl">Close Rate Increase</span></div><div><span class="cm-num" style="color:var(--lime)">28 Units</span><span class="cm-lbl">Sold from Digital</span></div></div></div><div class="case-bot"><p>"Our floor team used to waste hours with tire-kickers. Now every appointment that walks in is already decided."</p><div class="case-author">Brian Korir</div><div class="case-role">GM, Vantage Motors Nairobi</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pad" id="pricing">
+  <div class="inner">
+    <div style="text-align:center" class="reveal"><div class="stag lime" style="justify-content:center">Transparent Pricing</div><h2 class="sh">Simple Plans. Predictable Growth.</h2><p class="ssub" style="margin:0 auto">No hidden fees. No lock-in for the first 30 days. Cancel anytime if we don't deliver.</p></div>
+    <div class="plans">
+      <div class="plan reveal"><div class="plan-name">Starter</div><div class="plan-desc">For solo agents and small teams testing the waters</div><div class="plan-price">KES 29K<span>/mo</span></div><div class="plan-div"></div><ul class="plan-feats"><li>Up to 40 qualified leads/month</li><li>1 industry / niche focus</li><li>Meta or Google — 1 channel</li><li>WhatsApp lead delivery</li><li>Weekly performance report</li><li>Email support</li></ul><a href="#qualify" class="plan-btn">Get Started</a></div>
+      <div class="plan featured reveal"><div class="featured-glow"></div><div class="plan-badge">Most Popular</div><div class="plan-name">Growth</div><div class="plan-desc">For agencies and developers who want volume and quality</div><div class="plan-price">KES 79K<span>/mo</span></div><div class="plan-div"></div><ul class="plan-feats"><li>Up to 150 qualified leads/month</li><li>2 industries or niches</li><li>Meta + Google multi-channel</li><li>Landing page + funnel included</li><li>CRM integration & lead scoring</li><li>WhatsApp nurture sequences</li><li>Bi-weekly strategy calls</li><li>Priority support</li></ul><a href="#qualify" class="plan-btn">Get Started</a></div>
+      <div class="plan reveal"><div class="plan-name">Enterprise</div><div class="plan-desc">For large developers, banks, and multi-branch operations</div><div class="plan-price">Custom<span> pricing</span></div><div class="plan-div"></div><ul class="plan-feats"><li>Unlimited lead volume</li><li>Multiple industries</li><li>Full omni-channel strategy</li><li>Dedicated account manager</li><li>Custom CRM & API integration</li><li>Email + SEO + content strategy</li><li>Weekly strategy sessions</li><li>SLA-backed delivery</li></ul><a href="#contact" class="plan-btn">Contact Us</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec" id="contact">
+  <div class="cta-bg"></div>
+  <div class="inner">
+    <h2 class="reveal">Ready to Stop Chasing Leads<br>and Start <em>Receiving</em> Them?</h2>
+    <p class="reveal">Book a free 30-minute strategy call. We'll map out a custom acquisition plan — no pitch, just a clear plan built for your business.</p>
+    <form class="cta-form reveal" onsubmit="handleSubmit(event)"><input type="email" placeholder="Enter your work email" required><button type="submit">Book Free Call →</button></form>
+    <p style="margin-top:1rem;font-size:0.8rem;color:rgba(255,255,255,0.2)" class="reveal">No spam. No pressure. Just a conversation.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="#" class="logo">LeadForge</a><p>Customer acquisition for real estate, finance, automotive, healthcare and more. Based in Nairobi, serving East Africa.</p></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="#">Lead Generation</a></li><li><a href="#">WhatsApp Outreach</a></li><li><a href="#">Funnel Design</a></li><li><a href="#">CRM & Qualification</a></li><li><a href="#">SEO & Content</a></li></ul></div>
+    <div class="footer-col"><h4>Industries</h4><ul><li><a href="#">Real Estate</a></li><li><a href="#">Finance</a></li><li><a href="#">Automotive</a></li><li><a href="#">Healthcare</a></li><li><a href="#">Insurance</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">Case Studies</a></li><li><a href="#qualify">AI Qualifier</a></li><li><a href="#pricing">Pricing</a></li><li><a href="#contact">Contact</a></li></ul></div>
+  </div>
+  <div class="footer-bot"><p>© 2025 LeadForge. All rights reserved.</p><p>Privacy Policy · Terms of Service</p></div>
+</footer>
+
+<!-- FLOATING BUBBLE -->
+<div class="float-bubble" id="floatBubble">
+  <div class="float-tooltip" id="floatTip">
+    <button class="ft-close" onclick="closeTip()">✕</button>
+    <div class="ft-head">
+      <div class="ft-avatar">🤖</div>
+      <div><div class="ft-title">LeadForge AI</div><div class="ft-sub">Online now</div></div>
+    </div>
+    <div class="ft-msg">Got a lead? Let me qualify them in 60 seconds and send the summary to WhatsApp 📱</div>
+    <button class="ft-cta" onclick="goQualify()">Start AI Qualification →</button>
+  </div>
+  <button class="float-btn" onclick="toggleTip()">
+    🤖<span class="notif">3</span>
+  </button>
+</div>
+
+<script>
+// ── CURSOR ──
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-6}px,${my-6}px)`});
+(function animR(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.transform=`translate(${rx-18}px,${ry-18}px)`;requestAnimationFrame(animR)})();
+document.querySelectorAll('a,button,.ind-card,.case,.plan,.svc,.lcard').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.transform+=' scale(1.5)';ring.style.opacity='0.4'});
+  el.addEventListener('mouseleave',()=>{ring.style.opacity='1'});
+});
+
+// ── SCROLL REVEAL ──
+const obs=new IntersectionObserver((es)=>{es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*70);obs.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ── SCORE BARS ──
+setTimeout(()=>{document.querySelectorAll('.score-fill').forEach(f=>{f.style.width=f.dataset.w})},800);
+
+// ── COUNTERS ──
+function animCount(el){
+  const tgt=parseInt(el.dataset.target),sfx=el.dataset.suffix||'',dec=el.dataset.decimal==='true';
+  const dur=2000,st=performance.now();
+  (function step(now){const p=Math.min((now-st)/dur,1),ease=1-Math.pow(1-p,4),val=dec?(tgt/10*ease).toFixed(1):(Math.round(tgt*ease)).toLocaleString();el.textContent=val+sfx;if(p<1)requestAnimationFrame(step)})(performance.now());
+}
+new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('[data-target]').forEach(animCount)}})},{threshold:0.3}).observe(document.querySelector('.hero-stats'));
+
+// ── CTA FORM ──
+function handleSubmit(e){e.preventDefault();const b=e.target.querySelector('button');b.textContent="We'll be in touch! ✓";b.style.background='linear-gradient(135deg,#00E5FF,#0099AA)'}
+
+// ── FLOAT BUBBLE ──
+let tipOpen=false;
+function toggleTip(){tipOpen=!tipOpen;document.getElementById('floatTip').classList.toggle('show',tipOpen)}
+function closeTip(){tipOpen=false;document.getElementById('floatTip').classList.remove('show')}
+function goQualify(){closeTip();document.getElementById('qualify').scrollIntoView({behavior:'smooth'})}
+setTimeout(()=>{document.getElementById('floatTip').classList.add('show');tipOpen=true},3000);
+
+// ── AI CHATBOT ──
+const flow=[
+  {bot:"👋 Hi! I'm LeadForge AI. I'll qualify your lead in under 2 minutes.\n\nWhat industry are you targeting?",qr:['🏠 Real Estate','🏦 Finance / Mortgage','🚗 Automotive','🏥 Healthcare / Insurance']},
+  {bot:"Great choice! What's the lead's approximate budget?",qr:['Under KES 5M','KES 5M – 15M','KES 15M – 50M','KES 50M+']},
+  {bot:"What's their buying timeline?",qr:['Immediately (0–30 days)','1–3 months','3–6 months','Just exploring']},
+  {bot:"What type of intent have they shown?",qr:['Ready to buy / sign','Comparing options','Early research','Referred by someone']},
+  {bot:"Last one — how should your team follow up?",qr:['📱 WhatsApp (fastest)','📞 Phone call','📧 Email','📅 Book a meeting']},
+];
+
+let step=0,answers=[],lastLead=null,isBusy=false;
+
+window.onload=()=>{setTimeout(()=>botSay(flow[0].bot,flow[0].qr),600)};
+
+function botSay(text,qrs=[],extra=null){
+  isBusy=true;
+  const msgs=document.getElementById('aiMessages');
+  const t=document.createElement('div');
+  t.className='ai-msg bot';
+  t.innerHTML=`<div class="ai-avatar-sm">🤖</div><div class="ai-typing"><span></span><span></span><span></span></div>`;
+  msgs.appendChild(t);scrollAI();
+  const delay=700+Math.random()*500;
+  setTimeout(()=>{
+    t.remove();
+    const el=document.createElement('div');el.className='ai-msg bot';
+    let html=`<div class="ai-avatar-sm">🤖</div><div><div class="ai-bubble">${fmt(text)}`;
+    if(extra==='score'&&lastLead)html+=scoreCard(lastLead);
+    if(extra==='wa'&&lastLead)html+=waCard(lastLead);
+    html+=`</div><span class="ai-time">${now()}</span>`;
+    if(qrs.length)html+=`<div class="ai-qrs">${qrs.map(q=>`<button class="ai-qr" onclick="pickQR('${q.replace(/'/g,"\\'")}')">${q}</button>`).join('')}</div>`;
+    html+=`</div>`;
+    el.innerHTML=html;msgs.appendChild(el);
+    if(extra==='score')setTimeout(()=>{const f=el.querySelector('.ai-sc-fill');if(f)f.style.width=f.dataset.w},100);
+    scrollAI();isBusy=false;
+  },delay);
+}
+
+function userSay(text){
+  const msgs=document.getElementById('aiMessages');
+  const el=document.createElement('div');el.className='ai-msg user';
+  el.innerHTML=`<div><div class="ai-bubble">${fmt(text)}</div><span class="ai-time">${now()}</span></div>`;
+  msgs.appendChild(el);scrollAI();
+}
+
+function pickQR(val){
+  document.querySelectorAll('.ai-qrs').forEach(e=>e.remove());
+  userSay(val);answers.push(val);advance(val);
+}
+
+function aiSend(){
+  const inp=document.getElementById('aiInput');
+  const txt=inp.value.trim();
+  if(!txt||isBusy)return;
+  inp.value='';aiResize(inp);
+  document.querySelectorAll('.ai-qrs').forEach(e=>e.remove());
+  userSay(txt);answers.push(txt);advance(txt);
+}
+
+function advance(ans){
+  // handle post-flow special answers
+  if(ans.includes('WhatsApp')||ans==='📱 WhatsApp (fastest)'){
+    step++;
+    if(step>=flow.length){finalise();return;}
+  }
+  if(ans==='🔄 Qualify another lead'){setTimeout(aiRestart,300);return}
+  if(ans==='📊 View results'){document.getElementById('results').scrollIntoView({behavior:'smooth'});return}
+
+  step++;
+  if(step<flow.length){
+    setTimeout(()=>botSay(flow[step].bot,flow[step].qr),400);
+  } else {
+    finalise();
+  }
+}
+
+function finalise(){
+  const score=calcScore(answers);
+  const hot=score>=75,warm=score>=50;
+  const lbl=hot?'🔥 Hot Lead':warm?'⚡ Warm Lead':'❄️ Cold Lead';
+  lastLead={
+    industry:guessInd(answers[0]),
+    budget:answers[1]||'Not stated',
+    timeline:answers[2]||'TBD',
+    intent:answers[3]||'Unknown',
+    contact:answers[4]||'WhatsApp',
+    score
+  };
+  setTimeout(()=>botSay(`✅ **Qualification complete!**\n\n${lbl} — Score: **${score}/100**\n\nHere's the full lead summary:`,[],`score`),400);
+  setTimeout(()=>botSay(`Your lead has been scored and saved. Ready to send this to WhatsApp for immediate follow-up?`,['📱 Send to WhatsApp','🔄 Qualify another lead','📊 View results'],'wa'),2400);
+}
+
+function scoreCard(l){
+  return `<div class="ai-score-card"><div class="ai-sc-title">Lead Profile</div><div class="ai-sc-grid"><div><div class="ai-sc-lbl">Industry</div><div class="ai-sc-val">${l.industry}</div></div><div><div class="ai-sc-lbl">Budget</div><div class="ai-sc-val">${l.budget}</div></div><div><div class="ai-sc-lbl">Timeline</div><div class="ai-sc-val">${l.timeline}</div></div><div><div class="ai-sc-lbl">Intent</div><div class="ai-sc-val">${l.intent}</div></div></div><div style="display:flex;justify-content:space-between;font-size:0.7rem;margin-bottom:0.35rem"><span style="color:rgba(255,255,255,0.35)">Lead Score</span><span style="color:var(--lime);font-weight:700">${l.score}/100</span></div><div class="ai-sc-track"><div class="ai-sc-fill" style="width:0" data-w="${l.score}%"></div></div></div>`;
+}
+
+function waCard(l){
+  const msg=encodeURIComponent(`🔥 *LeadForge AI — Qualified Lead*\n\n*Industry:* ${l.industry}\n*Budget:* ${l.budget}\n*Timeline:* ${l.timeline}\n*Intent:* ${l.intent}\n*Best contact:* ${l.contact}\n*Score:* ${l.score}/100\n\nReady to follow up? 🚀`);
+  return `<div class="ai-wa-card" onclick="window.open('https://wa.me/?text=${msg}','_blank')"><span style="font-size:1.3rem">📱</span><div><div class="ai-wa-card-txt">Send to WhatsApp Now</div><div class="ai-wa-card-sub">Opens WhatsApp with full lead summary</div></div><span style="margin-left:auto;font-size:0.8rem;color:rgba(255,255,255,0.3)">→</span></div>`;
+}
+
+function aiRestart(){
+  step=0;answers=[];lastLead=null;isBusy=false;
+  document.getElementById('aiMessages').innerHTML='';
+  setTimeout(()=>botSay(flow[0].bot,flow[0].qr),400);
+}
+
+function aiWhatsApp(){
+  if(!lastLead){botSay("Please complete the qualification first — it only takes 60 seconds! 👆",[]);return}
+  const l=lastLead;
+  const msg=encodeURIComponent(`🔥 *LeadForge AI — Qualified Lead*\n\n*Industry:* ${l.industry}\n*Budget:* ${l.budget}\n*Timeline:* ${l.timeline}\n*Score:* ${l.score}/100\n\nSent via LeadForge AI 🤖`);
+  window.open('https://wa.me/?text='+msg,'_blank');
+}
+
+function aiCopy(){
+  if(!lastLead){alert('Complete a qualification first.');return}
+  const l=lastLead;
+  navigator.clipboard.writeText(`Lead Summary\nIndustry: ${l.industry}\nBudget: ${l.budget}\nTimeline: ${l.timeline}\nIntent: ${l.intent}\nScore: ${l.score}/100`).then(()=>{const b=document.querySelector('.ai-icon-btn');b.textContent='✓';setTimeout(()=>b.textContent='📋',1500)});
+}
+
+function calcScore(a){
+  let s=40;const t=a.join(' ').toLowerCase();
+  if(t.includes('real estate')||t.includes('automotive'))s+=10;
+  if(t.includes('50m')||t.includes('immediately')||t.includes('buy'))s+=20;
+  if(t.includes('1–3')||t.includes('0–30'))s+=15;
+  if(t.includes('ready')||t.includes('referred'))s+=12;
+  if(t.includes('whatsapp')||t.includes('phone'))s+=8;
+  return Math.min(s+Math.floor(Math.random()*8),100);
+}
+
+function guessInd(a){
+  if(!a)return'General';const t=a.toLowerCase();
+  if(t.includes('real')||t.includes('🏠'))return'Real Estate';
+  if(t.includes('finance')||t.includes('🏦')||t.includes('mortgage'))return'Finance';
+  if(t.includes('auto')||t.includes('🚗'))return'Automotive';
+  if(t.includes('health')||t.includes('🏥')||t.includes('insurance'))return'Healthcare';
+  return'General';
+}
+
+function fmt(t){return t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')}
+function now(){return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}
+function scrollAI(){const m=document.getElementById('aiMessages');requestAnimationFrame(()=>{m.scrollTop=m.scrollHeight})}
+function aiKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();aiSend()}}
+function aiResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px'}
+</script>
+</body>
+</html>
